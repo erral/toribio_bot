@@ -12,7 +12,7 @@ from mastodon import Mastodon
 def tweet_word_from_dictionary():
     word = get_random_untweeted_word()
     if word:
-        # tweet_word(word)
+        tweet_word(word)
         toot_word(word)
 
 
