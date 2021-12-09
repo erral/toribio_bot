@@ -6,12 +6,14 @@ import json
 import datetime
 import random
 from TwitterAPI import TwitterAPI
+from mastodon import Mastodon
 
 
 def tweet_word_from_dictionary():
     word = get_random_untweeted_word()
     if word:
-        tweet_word(word)
+        # tweet_word(word)
+        toot_word(word)
 
 
 def get_random_untweeted_word():
@@ -47,6 +49,23 @@ def tweet_word(word):
         res = api.request("statuses/update", {"status": text})
         if res.response.ok:
             print('Tweeted: "{}"'.format(text))
+
+def toot_word(word):
+    text = "Egunian berba edo esamolde bat. Gaur {word}: {meaning} {url} #eibar #eibarkoeuskara"
+    text = text.format(
+        word=word["entry"], meaning=word.get("meaning", "").strip(), url=word["url"]
+    )
+
+    with open("credentials.mastodon.json") as fp:
+        credentials = json.load(fp)
+
+        api = Mastodon(
+            access_token=credentials["ACCESS_TOKEN"],
+            api_base_url="https://mastodon.eus"
+        )
+        res = api.toot(text)
+        if res.get('id'):
+            print('Tooted: "{}"'.format(text))
 
 
 if __name__ == "__main__":
