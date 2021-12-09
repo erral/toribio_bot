@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+"""
+This script is inspired by https://github.com/ZiTAL/bermiotarra/tree/master/bot by @ZiTAL
+"""
 import json
 import datetime
 import random
