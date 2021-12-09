@@ -32,7 +32,7 @@ def get_random_untweeted_word():
 def tweet_word(word):
     text = "Egunian berba edo esamolde bat. Gaur {word}: {meaning} {url} #eibar #eibarkoeuskara"
     text = text.format(
-        word=word["entry"], meaning=word["meaning"].strip(), url=word["url"]
+        word=word["entry"], meaning=word.get("meaning", "").strip(), url=word["url"]
     )
 
     with open("credentials.twitter.json") as fp:
